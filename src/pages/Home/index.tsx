@@ -19,7 +19,7 @@ export function Home() {
         {ArrayMock.map((post) => {
           return (
             <GridItem key={post}>
-              <Post />
+              <Post id={String(post)} />
             </GridItem>
           );
         })}

@@ -22,7 +22,7 @@ export function Profile() {
           ml={["", "", "5"]}
           h={["", "", "148px"]}
         >
-          <Flex justify="space-between">
+          <Flex justify="space-between" mt={[3, 3, 0]}>
             <Text fontWeight="bold" color="white" fontSize="2xl">
               Diego Braga
             </Text>
@@ -36,7 +36,12 @@ export function Profile() {
             viverra massa quam dignissim aenean malesuada suscipit. Nunc,
             volutpat pulvinar vel mass.
           </Text>
-          <HStack as="ul" color="#C4D4E3" spacing={4} fontSize={["xs", "xs", "sm"]}>
+          <HStack
+            as="ul"
+            color="#C4D4E3"
+            spacing={4}
+            fontSize={["xs", "xs", "sm"]}
+          >
             <Box>
               <Image src={Github} width="18px" display="inline-block" />
               <Text as="span" ml="2">
