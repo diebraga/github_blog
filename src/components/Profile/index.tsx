@@ -21,9 +21,8 @@ export function Profile() {
           w="100%"
           ml={["", "", "5"]}
           h={["", "", "148px"]}
-          mt={["3", "3", ""]}
         >
-          <Flex justify="space-between" mb={2}>
+          <Flex justify="space-between">
             <Text fontWeight="bold" color="white" fontSize="2xl">
               Diego Braga
             </Text>
