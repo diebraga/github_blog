@@ -1,13 +1,17 @@
 import { BrowserRouter } from 'react-router-dom'
 import { Router } from "./Router"
-import { ChakraProvider } from '@chakra-ui/react'
+import { Box, ChakraProvider } from '@chakra-ui/react'
+import { Header } from './components/Header'
 
 function App() {
   return (
     <ChakraProvider>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <Box bg='#071422'>
+        <BrowserRouter>
+          <Header />
+          <Router />
+        </BrowserRouter>
+      </Box>
     </ChakraProvider>
   )
 }
