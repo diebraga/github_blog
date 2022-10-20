@@ -4,8 +4,13 @@ import Company from "../../assets/icons/company.svg";
 import Github from "../../assets/icons/github.svg";
 import Followers from "../../assets/icons/followers.svg";
 import LinkIcon from "../../assets/icons/link.svg";
+import { ProfileType } from "../../pages/Home";
 
-export function Profile() {
+type ProfileProps = {
+  user: ProfileType;
+};
+
+export function Profile({ user }: ProfileProps) {
   return (
     <ProfileContainer as="section" borderRadius="9px" height="100%">
       <Flex
@@ -14,8 +19,9 @@ export function Profile() {
         borderRadius="9px"
         alignItems="center"
         flexDir={["column", "column", "row"]}
+        w="100%"
       >
-        <Image src="https://github.com/diebraga.png" w="148px" h="148px" />
+        <Image src={user.avatar_url} w="148px" h="148px" borderRadius="9px" />
         <Flex
           flexDir="column"
           w="100%"
@@ -24,17 +30,15 @@ export function Profile() {
         >
           <Flex justify="space-between" mt={[3, 3, 0]}>
             <Text fontWeight="bold" color="white" fontSize="2xl">
-              Diego Braga
+              {user.name}
             </Text>
-            <Link color="#3294F8;" fontSize="sm">
+            <Link color="#3294F8;" fontSize="sm" href={user.html_url} target="_blank">
               GITHUB{" "}
               <Image src={LinkIcon} h="18px" display="inline-block" ml="2px" />
             </Link>
           </Flex>
-          <Text color="#AFC2D4" flexGrow={1} w="90%" mb={2}>
-            Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-            viverra massa quam dignissim aenean malesuada suscipit. Nunc,
-            volutpat pulvinar vel mass.
+          <Text color="#AFC2D4" flexGrow={1} mb={2}>
+            {user.bio}
           </Text>
           <HStack
             as="ul"
@@ -45,19 +49,19 @@ export function Profile() {
             <Box>
               <Image src={Github} width="18px" display="inline-block" />
               <Text as="span" ml="2">
-                Diego Braga
+                {user.login}
               </Text>
             </Box>
             <Box>
               <Image src={Company} width="18px" display="inline-block" />
               <Text as="span" ml="2">
-                Hertz
+                {user.company}
               </Text>
             </Box>
             <Box>
               <Image src={Followers} width="18px" display="inline-block" />
               <Text as="span" ml="2">
-                33 Followers
+                {user.followers} Followers
               </Text>
             </Box>
           </HStack>
