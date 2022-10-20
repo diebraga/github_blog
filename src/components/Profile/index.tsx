@@ -28,43 +28,60 @@ export function Profile({ user }: ProfileProps) {
           ml={["", "", "5"]}
           h={["", "", "148px"]}
         >
-          <Flex justify="space-between" mt={[3, 3, 0]}>
+          <Flex
+            justify="space-between"
+            flexDir={["column", "column", "row"]}
+            mt={[3, 3, 0]}
+            alignItems={["center", "center", "start"]}
+          >
             <Text fontWeight="bold" color="white" fontSize="2xl">
               {user.name}
             </Text>
-            <Link color="#3294F8;" fontSize="sm" href={user.html_url} target="_blank">
+            <Link
+              color="#3294F8;"
+              fontSize="sm"
+              href={user.html_url}
+              target="_blank"
+            >
               GITHUB{" "}
               <Image src={LinkIcon} h="18px" display="inline-block" ml="2px" />
             </Link>
           </Flex>
-          <Text color="#AFC2D4" flexGrow={1} mb={2}>
-            {user.bio}
-          </Text>
-          <HStack
-            as="ul"
-            color="#C4D4E3"
-            spacing={4}
-            fontSize={["xs", "xs", "sm"]}
+          <Flex
+            h="100%"
+            flexDir="column"
+            justify="space-between"
+            align={["center", "center", "start"]}
           >
-            <Box>
-              <Image src={Github} width="18px" display="inline-block" />
-              <Text as="span" ml="2">
-                {user.login}
-              </Text>
-            </Box>
-            <Box>
-              <Image src={Company} width="18px" display="inline-block" />
-              <Text as="span" ml="2">
-                {user.company}
-              </Text>
-            </Box>
-            <Box>
-              <Image src={Followers} width="18px" display="inline-block" />
-              <Text as="span" ml="2">
-                {user.followers} Followers
-              </Text>
-            </Box>
-          </HStack>
+            <Text color="#AFC2D4" mb={2} flexGrow={1}>
+              {user.bio}
+            </Text>
+            <HStack
+              as="ul"
+              color="#C4D4E3"
+              spacing={4}
+              fontSize={["xs", "xs", "sm"]}
+            >
+              <Box>
+                <Image src={Github} width="18px" display="inline-block" />
+                <Text as="span" ml="2">
+                  {user.login}
+                </Text>
+              </Box>
+              <Box>
+                <Image src={Company} width="18px" display="inline-block" />
+                <Text as="span" ml="2">
+                  {user.company}
+                </Text>
+              </Box>
+              <Box>
+                <Image src={Followers} width="18px" display="inline-block" />
+                <Text as="span" ml="2">
+                  {user.followers} Followers
+                </Text>
+              </Box>
+            </HStack>
+          </Flex>
         </Flex>
       </Flex>
     </ProfileContainer>
