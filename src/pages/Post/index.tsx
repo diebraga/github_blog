@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -22,7 +22,13 @@ const Post: React.FC = () => {
 
   return (
     <PostContainer>
-      <PostBreadCrumb post={post}/>
+      <PostBreadCrumb post={post} />
+      <Text
+        dangerouslySetInnerHTML={{ __html: post.body }}
+        color="white"
+        p={9}
+        mt="10px"
+      />
     </PostContainer>
   );
 };

@@ -22,7 +22,7 @@ type PostBreadCrumbProps = {
 
 const PostBreadCrumb: React.FC<PostBreadCrumbProps> = ({ post }) => {
   return (
-    <Flex h="168px" flexDir="column" bg="#112131" borderRadius="18px">
+    <Flex h="168px" flexDir="column" bg="#112131" borderRadius="18px" marginTop="-5rem">
       <Flex p={8} h="100%" flexDir="column" justify="space-between">
         <Flex justify="space-between" color="#3294F8" fontSize="sm">
           <ChacraLink as={Link} to="/">
