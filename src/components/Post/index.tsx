@@ -1,20 +1,28 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { IssuesPostType } from "../../pages/Home";
+import moment from "moment";
 
 type PostProps = {
-  id: string;
+  post: IssuesPostType;
 };
 
-const Post: React.FC<PostProps> = ({ id }) => {
+const Post: React.FC<PostProps> = ({ post }) => {
   return (
     <Link
       to={{
         pathname: "/post",
-        search: `?=${id}`,
+        search: `?=${post.id}`,
       }}
     >
-      <Flex h="260px" flexDir="column" bg="#112131" borderRadius="18px">
+      <Flex
+        h="260px"
+        flexDir="column"
+        bg="#112131"
+        borderRadius="18px"
+        _hover={{ border: "1px solid #3486eb" }}
+      >
         <Box p={8}>
           <Flex justify="space-between">
             <Text
@@ -24,7 +32,7 @@ const Post: React.FC<PostProps> = ({ id }) => {
               noOfLines={[2]}
               maxW="500px"
             >
-              JavaScript data types and data structures
+              {post.title}
             </Text>
             <Text
               color="#7B96B2"
@@ -34,7 +42,7 @@ const Post: React.FC<PostProps> = ({ id }) => {
               whiteSpace="nowrap"
               pl={2}
             >
-              3 Days ago
+              {moment(post.updated_at).fromNow()}
             </Text>
           </Flex>
 
@@ -44,16 +52,8 @@ const Post: React.FC<PostProps> = ({ id }) => {
             noOfLines={[6, 6, 5]}
             mt={[1, 4]}
             maxW={["300px", "500px"]}
-          >
-            Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-            viverra massa quam dignissim aenean malesuada suscipit. Nunc,
-            volutpat pulvinar vel mass. Tristique volutpat pulvinar vel massa,
-            pellentesque egestas. Eu viverra massa quam dignissim aenean
-            malesuada suscipit. Nunc, volutpat pulvinar vel mass. Tristique
-            volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa
-            quam dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar
-            vel mass.
-          </Text>
+            dangerouslySetInnerHTML={{ __html: post.body }}
+          ></Text>
         </Box>
       </Flex>
     </Link>

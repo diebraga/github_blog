@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Spinner } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { Post } from "../../components/Post";
@@ -15,12 +15,39 @@ export type ProfileType = {
   login: string;
 };
 
+export type IssuesPostType = {
+  title: string;
+  body: string;
+  url: string;
+  id: number;
+  updated_at: string;
+};
+
+export type IssuesPostsType = {
+  items: IssuesPostType[];
+};
+
+const github_api = "https://api.github.com";
+
 export function Home() {
   const [user, setUser] = useState({} as ProfileType);
+  const [issuesPosts, setIssuesPosts] = useState({} as IssuesPostsType);
+  const [searchText, setSearchText] = useState<string>("");
+  console.log(issuesPosts);
+  const fetchIssues = async (): Promise<IssuesPostsType> => {
+    const response = await fetch(
+      `${github_api}/search/issues?q=${searchText}%20repo:${
+        import.meta.env.VITE_GITHUB_USERNAME
+      }/${import.meta.env.VITE_GITHUB_REPOSITORY}`
+    );
+    const data: IssuesPostsType = await response.json();
+    setIssuesPosts(data);
+    return data;
+  };
 
   const fetchProfile = async (): Promise<ProfileType> => {
     const response = await fetch(
-      `https://api.github.com/users/${import.meta.env.VITE_GITHUB_USERNAME}`
+      `${github_api}/users/${import.meta.env.VITE_GITHUB_USERNAME}`
     );
     const data: ProfileType = await response.json();
     setUser(data);
@@ -31,7 +58,10 @@ export function Home() {
     fetchProfile();
   }, []);
 
-  const ArrayMock = Array.from(Array(10).keys());
+  useEffect(() => {
+    fetchIssues();
+  }, []);
+
   return (
     <HomeContainer>
       <Profile user={user} />
@@ -42,13 +72,17 @@ export function Home() {
         marginTop="40px"
         pb={12}
       >
-        {ArrayMock.map((post) => {
-          return (
-            <GridItem key={post}>
-              <Post id={String(post)} />
-            </GridItem>
-          );
-        })}
+        {!issuesPosts.items ? (
+          <Spinner />
+        ) : (
+          issuesPosts.items.map((post) => {
+            return (
+              <GridItem key={post.url}>
+                <Post post={post} />
+              </GridItem>
+            );
+          })
+        )}
       </Grid>
     </HomeContainer>
   );
