@@ -1,16 +1,17 @@
-import { Box, Flex } from '@chakra-ui/react';
-import styled from '@emotion/styled';
-import React from 'react';
+import { Box, Flex } from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import React from "react";
+import { PostBreadCrumb } from "../../components/PostBreadCrumb";
 
 const Post: React.FC = () => {
   return (
     <PostContainer>
-
+      <PostBreadCrumb />
     </PostContainer>
   );
-}
+};
 
-export {Post};
+export { Post };
 
 const PostContainer = styled(Box)`
   width: 100%;
