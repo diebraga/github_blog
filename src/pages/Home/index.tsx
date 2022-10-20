@@ -1,6 +1,6 @@
 import { Box, Grid, GridItem, Spinner } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Post } from "../../components/Post";
 import { Profile } from "../../components/Profile";
 import { Search } from "../../components/Search";
@@ -66,10 +66,21 @@ export function Home() {
     fetchIssues();
   }, []);
 
+  const onSubmit = (e: FormEvent): void => {
+    e.preventDefault();
+    fetchIssues();
+    setSearchText("");
+  };
+
   return (
     <HomeContainer>
       <Profile user={user} />
-      <Search />
+      <Search
+        setSearchText={setSearchText}
+        onSubmit={onSubmit}
+        searchText={searchText}
+        postsCount={issuesPosts.items && issuesPosts.items.length}
+      />
       <Grid
         templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(2, 1fr)"]}
         gap={[4, 5, 6]}
@@ -77,7 +88,13 @@ export function Home() {
         pb={12}
       >
         {!issuesPosts.items ? (
-          <Spinner />
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
         ) : (
           issuesPosts.items.map((post) => {
             return (
