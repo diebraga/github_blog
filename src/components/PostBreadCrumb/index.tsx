@@ -9,12 +9,18 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
-import Company from "../../assets/icons/company.svg";
+import Calendar from "../../assets/icons/calendar.svg";
 import Github from "../../assets/icons/github.svg";
-import Followers from "../../assets/icons/followers.svg";
+import Cloud from "../../assets/icons/cloud.svg";
 import LinkIcon from "../../assets/icons/link.svg";
+import { IssuesPostType } from "../../pages/Home";
+import moment from "moment";
 
-const PostBreadCrumb: React.FC = () => {
+type PostBreadCrumbProps = {
+  post: IssuesPostType;
+};
+
+const PostBreadCrumb: React.FC<PostBreadCrumbProps> = ({ post }) => {
   return (
     <Flex h="168px" flexDir="column" bg="#112131" borderRadius="18px">
       <Flex p={8} h="100%" flexDir="column" justify="space-between">
@@ -22,13 +28,13 @@ const PostBreadCrumb: React.FC = () => {
           <ChacraLink as={Link} to="/">
             {"<"} BACK
           </ChacraLink>
-          <ChacraLink as={Link} to="/">
+          <ChacraLink href={`${post.html_url}`} target="_blank" isExternal>
             SEE ON GITHUB{" "}
             <Image src={LinkIcon} h="18px" display="inline-block" ml="2px" />
           </ChacraLink>
         </Flex>
         <Heading fontWeight="bold" color="white" fontSize="2xl">
-          JavaScript data types and data structures
+          {post.title}
         </Heading>
         <HStack
           as="ul"
@@ -39,19 +45,19 @@ const PostBreadCrumb: React.FC = () => {
           <Box>
             <Image src={Github} width="18px" display="inline-block" />
             <Text as="span" ml="2">
-              Diego Braga
+              {post.user && post.user.login}
             </Text>
           </Box>
           <Box>
-            <Image src={Company} width="18px" display="inline-block" />
+            <Image src={Calendar} width="18px" display="inline-block" />
             <Text as="span" ml="2">
-              Hertz
+              {moment(post.updated_at).fromNow()}
             </Text>
           </Box>
           <Box>
-            <Image src={Followers} width="18px" display="inline-block" />
+            <Image src={Cloud} width="18px" display="inline-block" />
             <Text as="span" ml="2">
-              33 Followers
+              {post.comments} comments
             </Text>
           </Box>
         </HStack>

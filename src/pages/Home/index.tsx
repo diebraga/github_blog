@@ -21,6 +21,10 @@ export type IssuesPostType = {
   url: string;
   id: number;
   updated_at: string;
+  number: number;
+  html_url: string;
+  user: ProfileType;
+  comments: number;
 };
 
 export type IssuesPostsType = {
@@ -33,7 +37,7 @@ export function Home() {
   const [user, setUser] = useState({} as ProfileType);
   const [issuesPosts, setIssuesPosts] = useState({} as IssuesPostsType);
   const [searchText, setSearchText] = useState<string>("");
-  console.log(issuesPosts);
+
   const fetchIssues = async (): Promise<IssuesPostsType> => {
     const response = await fetch(
       `${github_api}/search/issues?q=${searchText}%20repo:${

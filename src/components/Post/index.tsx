@@ -13,7 +13,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     <Link
       to={{
         pathname: "/post",
-        search: `?=${post.id}`,
+        search: `?url=${post.url}`,
       }}
     >
       <Flex

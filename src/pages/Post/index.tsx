@@ -1,12 +1,28 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { PostBreadCrumb } from "../../components/PostBreadCrumb";
+import { IssuesPostType } from "../Home";
 
 const Post: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const [post, setPost] = useState({} as IssuesPostType);
+
+  const fetchPost = async (): Promise<void> => {
+    const response = await fetch(`${searchParams.get("url")}`);
+    const data = await response.json();
+    setPost(data);
+    return data;
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
   return (
     <PostContainer>
-      <PostBreadCrumb />
+      <PostBreadCrumb post={post}/>
     </PostContainer>
   );
 };
